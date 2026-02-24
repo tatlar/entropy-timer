@@ -1,0 +1,192 @@
+/* Обнуляем лишние отступы */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0f0f0f; /* Глубокий черный/серый */
+    color: #e0e0e0;           /* Мягкий белый текст */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Чтобы не было полос прокрутки */
+}
+
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+}
+
+header h1 {
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #666; /* Неяркий заголовок */
+}
+
+#controls {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#start-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-weight: 300;
+}
+
+#start-btn:hover {
+    background: #e0e0e0;
+    color: #0f0f0f;
+    border-color: #e0e0e0;
+}
+
+#timer-label {
+    font-size: 1.2rem;
+    font-weight: 200;
+    color: #666;
+    font-variant-numeric: tabular-nums;
+}
+
+#timer {
+    font-size: 3rem;
+    font-weight: 200;
+    margin-bottom: 40px;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer; /* Делаем курсор-ручку */
+    transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+#timer:hover {
+    opacity: 0.7; /* При наведении чуть бледнеет */
+}
+
+#timer:active {
+    transform: scale(0.95); /* При клике слегка сжимается */
+}
+
+#time-slider {
+    width: 200px;
+    margin-top: 15px;
+    cursor: pointer;
+    accent-color: #666; /* Цвет ползунка */
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+#time-slider:disabled {
+    opacity: 0; /* Прячем слайдер, когда программа запущена */
+    pointer-events: none;
+}
+
+/* Стили для текста статуса, если еще не добавили */
+#status-text {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    color: #555;
+}
+
+/* Настройка сетки для точек */
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); 
+    /* Делаем контейнер квадратным */
+    aspect-ratio: 1 / 1; 
+    width: 100%;
+    max-width: 400px; /* Ограничим размер квадрата */
+    margin: 0 auto;
+    
+    /* Настраиваем отступы: 15px по вертикали, 5px по горизонтали */
+    column-gap: 5px; 
+    row-gap: 15px;
+    
+    justify-items: center;
+    align-items: center;
+}
+
+/* Базовое состояние точки */
+.dot {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    will-change: transform; /* Оптимизация для плавности */
+    transition: none;
+}
+
+/* Специальный стиль для темы звезд */
+.dot.star-style {
+    width: 6px;
+    height: 6px;
+    box-shadow: 0 0 10px white;
+}
+
+/* Новая анимация: Вспышка цветом и переход в серый */
+@keyframes final-flash {
+    0% { 
+        filter: brightness(1); 
+        box-shadow: 0 0 0 0 currentColor;
+    }
+    40% { 
+        filter: brightness(5); 
+        box-shadow: 0 0 20px 8px currentColor; 
+    }
+    100% { 
+        filter: brightness(1); 
+        background-color: #555 !important; /* Тот самый серый цвет */
+        box-shadow: none;
+    }
+}
+
+.dot.calm {
+    animation: final-flash 0.8s ease-out forwards;
+    background-color: #555 !important; /* Фиксируем серый цвет после остановки */
+    box-shadow: none;
+}
+
+#themes {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.theme-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    padding: 5px 12px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-btn.active, .theme-btn:hover {
+    border-color: #eee;
+    color: #eee;
+}
+
+footer {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #444;
+    font-style: italic;
+}
